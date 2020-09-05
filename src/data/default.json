@@ -1,0 +1,28 @@
+[
+  {
+    "component": "b-def-box",
+    "params": {
+
+    }
+  },
+  {
+    "component": "b-vertical-box",
+    "params": {
+    }
+  },
+  {
+    "component": "b-cats-box",
+    "params": {
+    }
+  },
+  {
+    "component": "b-slider-box",
+    "params": {
+    }
+  },
+  {
+    "component": "b-swipe-box",
+    "params": {
+    }
+  }
+]

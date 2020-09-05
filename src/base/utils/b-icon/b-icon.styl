@@ -1,0 +1,24 @@
+@import "super/i-block/i-block.styl"
+
+$p = {
+	hoverBgColor: #EAEAEA
+}
+
+b-icon extends i-block
+	display inline-flex
+
+	margin 0 2px
+	padding 0 2px
+
+
+	&_button_true
+		&
+		& span
+			display inline-flex
+			justify-content center
+			align-items center
+
+		cursor pointer
+
+		&:hover
+			background-color $p.hoverBgColor

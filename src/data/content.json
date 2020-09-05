@@ -1,0 +1,955 @@
+[
+  {
+    "component": "b-slider-box",
+    "params": {
+      "slug": "collection-coupons-1",
+      "uuid": "c7808612-9d37-4831-bb66-0e02c26b37c6",
+      "dataProvider": "cps.Collections",
+      "preset": [
+        "catsSlider",
+        "analyticsCollection",
+        "paginationCollections"
+      ],
+      "elementRenderKey": "uuid",
+      "elementsPerChunk": 10,
+      "elementAction": {
+        "action": {
+          "method": "r.openCpsCollection",
+          "defArgs": true
+        }
+      }
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "121470b7-716a-44a1-8cac-5b4317a7a71c"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "skeletonSize": 2,
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-perekrestok25",
+      "mainColor": "#",
+      "style": "background: transparent; color: #000",
+
+      "title": {
+        "main": "Нам 25 лет!",
+        "desc": "Подборка от Перекрёстка",
+        "icon": "https://leonardo.edadeal.io/re/144x144/retailers/images/icons/sq/dc24c75974c34564aba8f5308209139a.png"
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "partnerUuid": "94d98417-42c3-11e6-9419-52540010b608"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [
+                  {
+                    "query": {
+                      "compilationSlug": {
+                        "target": "$boxParams",
+                        "get": "parent.slug"
+                      },
+                      "compilationUuid": {
+                        "target": "$boxParams",
+                        "get": "request.partnerUuid"
+                      },
+                      "listPosition": {
+                        "target": "$boxParams",
+                        "get": "index"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Все купоны Перекрёстка",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": [
+              "Нам 25 лет!",
+              {
+                "partnerUuid": "94d98417-42c3-11e6-9419-52540010b608",
+                "compilationSlug": {
+                  "target": "$boxParams",
+                  "get": "slug"
+                },
+                "compilationUuid": "94d98417-42c3-11e6-9419-52540010b608",
+                "position": {
+                  "target": "$boxParams",
+                  "get": "index"
+                },
+                "last": {
+                  "target": "$boxParams",
+                  "get": "isLast"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "688b6f42-1dec-4d2f-ab67-35eebdbac774"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-karusel",
+      "mainColor": "#fff",
+      "style": "background-color: #00764c; color: #fff",
+
+      "title": {
+        "main": "Время закупиться",
+        "desc": "Подборка от Карусели",
+        "icon": "https://leonardo.edadeal.io/re/144x144/retailers/images/icons/sq/ret_7.png"
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "partnerUuid": "94d9852e-42c3-11e6-9419-52540010b608"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [
+                  {
+                    "query": {
+                      "compilationSlug": {
+                        "target": "$boxParams",
+                        "get": "parent.slug"
+                      },
+                      "compilationUuid": {
+                        "target": "$boxParams",
+                        "get": "request.partnerUuid"
+                      },
+                      "listPosition": {
+                        "target": "$boxParams",
+                        "get": "index"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Все купоны Карусели",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": [
+              "Время закупиться",
+              {
+                "partnerUuid": "94d9852e-42c3-11e6-9419-52540010b608",
+                "compilationSlug": {
+                  "target": "$boxParams",
+                  "get": "slug"
+                },
+                "compilationUuid": "94d98417-42c3-11e6-9419-52540010b608",
+                "position": {
+                  "target": "$boxParams",
+                  "get": "index"
+                },
+                "last": {
+                  "target": "$boxParams",
+                  "get": "isLast"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "be1fd550-3b01-40c1-9f3d-c29b03722f22"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-burgerking",
+      "mainColor": "#FADD68",
+      "style": "background: #FADD68; color: #000",
+
+      "title": {
+        "main": "Cытные купоны",
+        "desc": "Подборка от Бургер Кинга",
+        "icon": "https://yastatic.net/s3/edadeal-public-static/retailers/images/icons/sq/ret_429.png"
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "partnerUuid": "51691082-2fe9-408b-86a4-69a1dd3d5791"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [
+                  {
+                    "query": {
+                      "compilationSlug": {
+                        "target": "$boxParams",
+                        "get": "parent.slug"
+                      },
+                      "compilationUuid": {
+                        "target": "$boxParams",
+                        "get": "request.partnerUuid"
+                      },
+                      "listPosition": {
+                        "target": "$boxParams",
+                        "get": "index"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Все купоны Бургер Кинга",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": [
+              "Сытные купоны",
+              {
+                "partnerUuid": "51691082-2fe9-408b-86a4-69a1dd3d5791",
+                "compilationSlug": {
+                  "target": "$boxParams",
+                  "get": "slug"
+                },
+                "compilationUuid": "51691082-2fe9-408b-86a4-69a1dd3d5791",
+                "position": {
+                  "target": "$boxParams",
+                  "get": "index"
+                },
+                "last": {
+                  "target": "$boxParams",
+                  "get": "isLast"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "83bf14ad-d2cc-4b6c-b458-e6bfaa082ed6"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-kroshkakartoshka",
+      "mainColor": "#ffebb4",
+      "style": "background: #ffebb4; color: #000",
+
+      "title": {
+        "main": "Перекусим вместе",
+        "desc": "Подборка от Крошки Картошки",
+        "icon": "https://yastatic.net/s3/edadeal-public-static/retailers/images/icons/sq/c8f15db6c8f2446d9b1f3310c9413fbe.png"
+
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "partnerUuid": "755e191d-c697-484e-9033-80460c1455e0"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [{
+                  "query": {
+                    "compilationSlug": {
+                      "target": "$boxParams",
+                      "get": "parent.slug"
+                    },
+                    "compilationUuid": {
+                      "target": "$boxParams",
+                      "get": "request.partnerUuid"
+                    },
+                    "listPosition": {
+                      "target": "$boxParams",
+                      "get": "index"
+                    }
+                  }
+                }]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Все купоны Крошки Картошки",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": ["Перекусим вместе", {
+              "partnerUuid": "755e191d-c697-484e-9033-80460c1455e0",
+              "compilationSlug": {
+                "target": "$boxParams",
+                "get": "slug"
+              },
+              "compilationUuid": "755e191d-c697-484e-9033-80460c1455e0",
+              "position": {
+                "target": "$boxParams",
+                "get": "index"
+              },
+              "last": {
+                "target": "$boxParams",
+                "get": "isLast"
+              }
+            }]
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "c93a4fd6-4cb2-4038-ae0e-e38aabcb45d5"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-dodopizza",
+      "mainColor": "#fff",
+      "style": "background: #f26528; color: #fff",
+
+      "title": {
+        "main": "Время для пиццы!",
+        "desc": "Подборка от Додо Пиццы",
+        "icon": "https://yastatic.net/s3/edadeal-public-static/retailers/images/icons/sq/279b521f177a4bb1b9410d168c6fdcd6.png"
+
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "partnerUuid": "171860eb-71c5-4791-a713-655232620873"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [{
+                  "query": {
+                    "compilationSlug": {
+                      "target": "$boxParams",
+                      "get": "parent.slug"
+                    },
+                    "compilationUuid": {
+                      "target": "$boxParams",
+                      "get": "request.partnerUuid"
+                    },
+                    "listPosition": {
+                      "target": "$boxParams",
+                      "get": "index"
+                    }
+                  }
+                }]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Все купоны Додо Пиццы",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": ["Перекусим вместе", {
+              "partnerUuid": "171860eb-71c5-4791-a713-655232620873",
+              "compilationSlug": {
+                "target": "$boxParams",
+                "get": "slug"
+              },
+              "compilationUuid": "171860eb-71c5-4791-a713-655232620873",
+              "position": {
+                "target": "$boxParams",
+                "get": "index"
+              },
+              "last": {
+                "target": "$boxParams",
+                "get": "isLast"
+              }
+            }]
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "0f8b5465-6ce5-446f-b1ce-4c1b76a918a2"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-erkafarm",
+      "mainColor": "#DAEAE5",
+      "style": "background: #DAEAE5; color: #09141f",
+
+      "title": {
+        "main": "Будьте здоровы!",
+        "desc": "Подборка для вашего здоровья",
+        "icon": "https://yastatic.net/s3/edadeal-public-static/wallet/icons/farmcross.png"
+
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "collectionUuid": "dbba71b1-2064-4d16-b2ea-2b1d966f90de"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [{
+                  "query": {
+                    "compilationSlug": {
+                      "target": "$boxParams",
+                      "get": "parent.slug"
+                    },
+                    "compilationUuid": {
+                      "target": "$boxParams",
+                      "get": "request.partnerUuid"
+                    },
+                    "listPosition": {
+                      "target": "$boxParams",
+                      "get": "index"
+                    }
+                  }
+                }]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Смотреть все купоны",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": ["Будьте здоровы!", {
+              "collectionUuid": "dbba71b1-2064-4d16-b2ea-2b1d966f90de",
+              "compilationSlug": {
+                "target": "$boxParams",
+                "get": "slug"
+              },
+              "compilationUuid": "dbba71b1-2064-4d16-b2ea-2b1d966f90de",
+              "position": {
+                "target": "$boxParams",
+                "get": "index"
+              },
+              "last": {
+                "target": "$boxParams",
+                "get": "isLast"
+              }
+            }]
+          }
+        }
+      ]
+    }
+  },
+
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "slug": "compilation-coupons-dominospizza",
+      "mainColor": "#",
+      "style": "background: transparent; color: #000",
+
+      "title": {
+        "main": "Есть чему удивиться!",
+        "desc": "Подборка от Domino's Pizza",
+        "icon": "https://yastatic.net/s3/edadeal-public-static/wallet/icons/dominos.png"
+      },
+
+      "content": [
+        {
+          "component": "b-slider-box",
+
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+
+            "preset": [
+              "dynamicCardsSlider",
+              "analyticsCouponCard",
+              "analyticsCompilation",
+              "paginationSlider"
+            ],
+
+            "request": {
+              "partnerUuid": "016272aa-8b7d-4a59-85f6-a060f8d7e217"
+            },
+
+            "elementRenderKey": "uuid",
+            "elementAttrs": {
+              "retailerIcon": false
+            },
+
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true,
+                "args": [
+                  {
+                    "query": {
+                      "compilationSlug": {
+                        "target": "$boxParams",
+                        "get": "parent.slug"
+                      },
+                      "compilationUuid": {
+                        "target": "$boxParams",
+                        "get": "request.partnerUuid"
+                      },
+                      "listPosition": {
+                        "target": "$boxParams",
+                        "get": "index"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+
+      "controls": [
+        {
+          "text": "Все купоны Domino's Pizza",
+
+          "action": {
+            "method": "r.openCpsCompilation",
+            "args": [
+              "Есть чему удивиться!",
+              {
+                "partnerUuid": "016272aa-8b7d-4a59-85f6-a060f8d7e217",
+                "compilationSlug": {
+                  "target": "$boxParams",
+                  "get": "slug"
+                },
+                "compilationUuid": "016272aa-8b7d-4a59-85f6-a060f8d7e217",
+                "position": {
+                  "target": "$boxParams",
+                  "get": "index"
+                },
+                "last": {
+                  "target": "$boxParams",
+                  "get": "isLast"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+    "params": {
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "collectionUuid": "22c16da2-c133-46ef-bf48-45376bcbef06"
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "component": "b-def-box",
+
+    "params": {
+      "title": {
+        "main": "Не пропустите"
+      },
+      "content": [
+        {
+          "component": "b-vertical-box",
+          "params": {
+            "dataProvider": "cps.CampaignsList",
+            "request": {
+              "excludePartnerUuid": ["51691082-2fe9-408b-86a4-69a1dd3d5791", "755e191d-c697-484e-9033-80460c1455e0", "94d98417-42c3-11e6-9419-52540010b608", "171860eb-71c5-4791-a713-655232620873", "016272aa-8b7d-4a59-85f6-a060f8d7e217", "94d9852e-42c3-11e6-9419-52540010b608"],
+              "excludeCollectionUuid": ["121470b7-716a-44a1-8cac-5b4317a7a71c", "83bf14ad-d2cc-4b6c-b458-e6bfaa082ed6", "dbba71b1-2064-4d16-b2ea-2b1d966f90de", "688b6f42-1dec-4d2f-ab67-35eebdbac774", "c93a4fd6-4cb2-4038-ae0e-e38aabcb45d5", "0f8b5465-6ce5-446f-b1ce-4c1b76a918a2", "22c16da2-c133-46ef-bf48-45376bcbef06", "be1fd550-3b01-40c1-9f3d-c29b03722f22"]
+            },
+
+            "preset": [
+              "dynamicCards",
+              "analyticsCouponCard",
+              "pagination"
+            ],
+
+            "elementRenderKey": "uuid",
+            "elementAction": {
+              "action": {
+                "method": "r.openCpsCard",
+                "defArgs": true
+              }
+            },
+            "elementAttrs": {
+              "hasAds": true
+            }
+          }
+        }
+      ]
+    }
+  }
+]

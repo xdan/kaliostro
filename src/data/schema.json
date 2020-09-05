@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "service": "wallet",
+  "platform": "any",
+  "oneOf": [{"$ref": "#/definitions/page"}],
+  "definitions": {
+    "meta": {
+      "components": [
+        "b-cats-box",
+        "b-swipe-box",
+        "b-vertical-box",
+        "b-slider-box",
+        "b-def-box"
+      ],
+      "dataProviders": {
+        "cps.Collections":  {},
+        "cps.CampaignsList":  {
+          "collectionUuid": {
+            "type": "string",
+            "label": "UUID Кампании"
+          },
+          "partnerUuid": {
+            "type": "string",
+            "label": "UUID Ритейлера"
+          }
+        },
+        "cps.TagsList":  {},
+        "cps.Campaign":  {}
+      },
+      "presets": [
+        "catsSlider",
+        "analyticsCollection",
+        "paginationCollections"
+      ]
+    },
+    "page": {},
+    "component": {
+      "component": {
+        "type": "string",
+        "enum": {"$ref": "#/definitions/meta/components"},
+        "label": "Компонент",
+        "required": true
+      },
+      "params": {
+        "slug": {
+          "type": "text",
+          "label": "slug1",
+          "required": true
+        },
+        "name": {
+          "type": "text",
+          "label": "Название компонента"
+        },
+        "presets": {
+          "type": "array",
+          "label": "Преднастройки",
+          "oneOf": {
+            "$ref": "#/definitions/meta/presets"
+          }
+        }
+      }
+    },
+    "b-cats-box": {
+      "extends": {"$ref": "#/definitions/component"},
+      "params": {
+        "dataProvider": {
+          "type": "string",
+          "enum": {
+            "$ref": "#/definitions/meta/dataProviders"
+          },
+          "label": "Поставщик данных"
+        }
+      }
+    },
+    "b-vertical-box": {
+      "extends": {"$ref": "#/definitions/b-cats-box"}
+    },
+    "b-slider-box": {
+      "extends": {"$ref": "#/definitions/b-cats-box"},
+      "params": {
+        "uuid": {
+          "type": "text",
+          "label": "uuid"
+        }
+      }
+    },
+    "b-def-box": {
+      "extends": {"$ref": "#/definitions/component"},
+      "params": {
+        "mainColor": {
+          "type": "text",
+          "label": "Основной цвет"
+        },
+        "style": {
+          "type": "text",
+          "label": "Стиль"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import "super/i-block/i-block.styl"
+@import "base/b-node/modules/params.styl"
+
+$p = {
+	borderColor: #CCC
+}
+
+b-node extends i-block
+	&__control
+		display flex
+		justify-content space-between
+		align-items center
+
+		height 48px
+		padding-left 12px
+
+		border-bottom 1px solid $p.borderColor
+
+	&__title
+		flex 1
+
+		span
+		strong
+			margin-right 8px
+
+		strong + span
+			opacity 0.8
+
+		strong
+			font-weight 700
+
