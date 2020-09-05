@@ -4,6 +4,9 @@ export * from 'super/i-block/i-block';
 
 @component()
 export default class bContent extends iBlock {
+	/** @override */
+	readonly Root!: any;
+
 	@prop(Array)
 	content!: INode[];
 

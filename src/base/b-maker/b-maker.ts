@@ -30,8 +30,4 @@ export default class bMaker extends iBlock {
 		this.showDropDown = false;
 		window.removeEventListener('mouseup', this.onHide);
 	}
-
-	ttt() {
-		alert(222);
-	}
 }
