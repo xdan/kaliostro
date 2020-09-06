@@ -36,12 +36,17 @@
 						@click = proxyEvent('delete', path)
 					.
 
+					< b-icon &
+						:icon = 'code' |
+						:button = true |
+						@click = openEditDialog
+					.
+
 				< template v-else
 					< b-icon &
 						:icon = 'plus' |
 						:button = true |
 						@click = proxyEvent('add', data)
 					.
-
 			< template v-if = !static
 				+= self.params()

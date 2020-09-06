@@ -1,15 +1,22 @@
-import iStaticPage, { component, prop, system } from 'super/i-static-page/i-static-page';
+import iStaticPage, { component, field, system } from 'super/i-static-page/i-static-page';
 import { INode } from 'base/b-node/interface';
+import { resolveRef } from 'pages/p-root/modules/schema';
+import bDialog from "base/dialogs/b-dialog/b-dialog";
+import {SchemaItem, SchemaRef} from "pages/p-root/modules/interface";
 
 export * from 'super/i-static-page/i-static-page';
 
 @component({root: true})
 export default class pRoot extends iStaticPage {
-	@prop(Object)
+	readonly $refs!: iStaticPage["$refs"] & {
+		dialog: bDialog;
+	};
+
+	@field()
 	content: INode[] = require('data/content.json');
 
 	@system()
-	schema: Dictionary = require('data/schema.json');
+	schema = require('data/schema.json');
 
 	getKey(path: string) {
 		const chain = path.split('/');
@@ -53,13 +60,10 @@ export default class pRoot extends iStaticPage {
 
 			target.splice(position, 0, Object.fastClone(node));
 		}
-
-		this.forceUpdate();
 	}
 
 	deleteNode(path: string[]): void {
 		this.setValue(path, null);
-		this.forceUpdate();
 	}
 
 	copyNode(path: string[]): void {
@@ -73,12 +77,10 @@ export default class pRoot extends iStaticPage {
 
 		if (!target) {
 			this.setValue(currentPath, [node])
-
+			this.forceUpdate();
 		} else {
 			Object.isArray(target) && target.push(node);
 		}
-
-		this.forceUpdate();
 	}
 
 	lock(): void {
@@ -87,5 +89,9 @@ export default class pRoot extends iStaticPage {
 
 	unlock(): void {
 		this.setMod('lock', false);
+	}
+
+	resolveRef(item: SchemaRef | SchemaItem): SchemaItem {
+		return resolveRef(item);
 	}
 }

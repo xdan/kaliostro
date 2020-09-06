@@ -12,9 +12,6 @@ export * from 'super/i-block/i-block';
  */
 @component({functional: true})
 export default class bSelect extends iBlock {
-	@prop(Array)
-	path!: string[];
-
 	@prop(String)
 	value: string = '';
 
@@ -22,6 +19,6 @@ export default class bSelect extends iBlock {
 	options: string[] = [];
 
 	onChange(event: InputEvent): void {
-		this.emit('change', this.path, (<HTMLInputElement>event.target)?.value);
+		this.emit('change', (<HTMLInputElement>event.target)?.value);
 	}
 }

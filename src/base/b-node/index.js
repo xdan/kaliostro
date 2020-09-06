@@ -1,3 +1,3 @@
 package('b-node')
 	.extends('i-block')
-	.dependencies('b-params', 'b-icon', 'b-button');
+	.dependencies('b-params', 'b-icon', 'b-button', 'b-dialog');

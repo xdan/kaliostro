@@ -4,7 +4,7 @@
 
 - template index() extends ['i-block'].index
 	- block body
-		< select.uk-select @change = onChange
+		< select.uk-select.uk-form-small @change = onChange
 			< option &
 				v-for = v in options |
 				:selected = value === v |

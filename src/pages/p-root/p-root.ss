@@ -4,6 +4,8 @@
 
 - template index() extends ['i-static-page.component'].index
 	- block body
+		< b-dialog ref = dialog
+
 		< b-maker
 
 		< b-content &

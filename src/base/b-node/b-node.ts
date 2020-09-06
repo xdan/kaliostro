@@ -2,10 +2,13 @@
  * [[include:base/b-node/README.md]]
  * @packageDocumentation
  */
+import symbolGenerator from 'core/symbol';
 
-import iBlock, { component, prop, computed, field, watch } from 'super/i-block/i-block';
+import iBlock, { component, prop, computed, field, hook } from 'super/i-block/i-block';
 import { INode } from "base/b-node/interface";
-import bContent from "base/b-content/b-content";
+
+export const
+	$$ = symbolGenerator();
 
 export * from 'super/i-block/i-block';
 
@@ -55,15 +58,24 @@ export default class bNode extends iBlock {
 	@field()
 	showParams: boolean = false;
 
+	@hook('mounted')
+	onReady(): void {
+		this.setMod('child', this.path.length > 1)
+	}
+
 	toggleParams() {
 		this.showParams = !this.showParams;
 	}
 
 	private separator: Nullable<HTMLElement> = null;
 
-	onDragStart() {
-		window.addEventListener('mouseup', this.onDragEnd);
-		window.addEventListener('mousemove', this.onDrag);
+	private onDragStart(): void {
+		this.async.on(window, 'mouseup', this.onDragEnd, {
+			group: $$.bNodeMouse
+		})
+		this.async.on(window, 'mousemove', this.onDrag.throttle(50), {
+			group: $$.bNodeMouse
+		})
 
 		this.showParams = false;
 		this.separator = document.createElement('div');
@@ -72,23 +84,23 @@ export default class bNode extends iBlock {
 		this.r.lock();
 	}
 
-	onDragEnd(e: MouseEvent) {
+	private onDragEnd(e: MouseEvent): void {
 		this.applyForNode(e, e.target as HTMLElement, (ctx, path) => {
 			this.proxyEvent('move', this.data, this.path, path, this.static || e.shiftKey);
 		});
 
-		window.removeEventListener('mouseup', this.onDragEnd);
-		window.removeEventListener('mousemove', this.onDrag);
+		this.async.off({
+			group: $$.bNodeMouse
+		});
 
 		this.separator?.remove();
 		this.separator = null;
 		this.r.unlock();
 	}
 
-	onDrag(e: MouseEvent): void {
-		e.preventDefault();
+	private onDrag(e: MouseEvent): void {
 		this.applyForNode(e, e.target as HTMLElement, () => {});
-	}
+	};
 
 	private applyForNode(e: MouseEvent, target: Nullable<HTMLElement>, func: (ctx: bNode, path: string[]) => void) {
 		if (!this.separator) {
@@ -127,5 +139,14 @@ export default class bNode extends iBlock {
 
 	proxyEvent(event: string, ...args: any) {
 		this.$parent?.emit(event, ...args);
+	}
+
+	openEditDialog() {
+		this.r.$refs.dialog.open(
+			JSON.stringify(Object.fastClone(this.data), null, "\t"),
+			(value: string): void => {
+				this.proxyEvent('set-value', this.path, JSON.parse(value));
+			}
+		)
 	}
 }

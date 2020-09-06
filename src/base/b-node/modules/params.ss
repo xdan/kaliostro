@@ -8,9 +8,8 @@
 		< .&__params v-if = showParams
 			< b-select &
 				:value = type |
-				:path = path.concat(['component']) |
-				:options = r.getKey('definitions/meta/components') |
-				@onChange = r.setValue
+				:options = r.getKey('definitions/componentName/enum') |
+				@onChange = (value) => proxyEvent('set-value', path.concat(['component']), value)
 			.
 
 			< b-params v-if = params | :params = params | :path = path.concat('params')

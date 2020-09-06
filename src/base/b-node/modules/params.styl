@@ -1,13 +1,17 @@
 $p = {
 	borderColor: #CCC
+	bgColor: #F5F5F5
 }
 
 b-node
 	&__params
 		padding 16px
+		background-color $p.bgColor
+
+	&_child_true &__params
+		padding-right 0
 
 	&__children-title
-		margin-bottom 4px
 		padding 8px 0 4px
 		font-size 14px
 		font-weight 700

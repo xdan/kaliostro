@@ -1,0 +1,27 @@
+@import "super/i-block/i-block.styl"
+
+$p = {
+	borderColor: #CCC
+	errorColor: #F00
+}
+
+b-dialog extends i-block
+	.CodeMirror
+		height auto
+
+	&__modal-dialog
+		flex-col space-between def
+		size 90vw 80vh
+
+	&__manage
+		flex-row space-between def
+		padding-top 16px
+
+	&__area
+		flex 1
+		overflow auto
+		border 1px solid $p.borderColor
+
+	&__error-box:not(:empty)
+		padding 16px
+		color $p.errorColor

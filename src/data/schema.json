@@ -110,6 +110,7 @@
         {
           "properties": {
             "params": {
+              "content": null,
               "dataProvider": {
                 "type": "string",
                 "enum": {
