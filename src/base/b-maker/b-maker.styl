@@ -5,7 +5,14 @@ $p = {
 }
 
 b-maker extends i-block
-	padding 16px
+	display inline
+
+	&__make-button
+		size 24px
 
 	&__drop-down
+		display none
+		padding 16px
+
+	&_show_true &__drop-down
 		display block

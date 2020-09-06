@@ -16,23 +16,23 @@ export default class bContent extends iBlock {
 	@prop(Boolean)
 	static:boolean = false;
 
-	@watch('?event:onMove')
-	onMove(path: string[], newPath: string[], copy: boolean): void {
-		this.r.moveNode(this.content, path, newPath, copy)
+	@watch('!:onMove')
+	onMove(node: INode, path: string[], newPath: string[], copy: boolean): void {
+		this.r.moveNode(node, path, newPath, copy)
 	}
 
-	@watch('?event:onDelete')
+	@watch('!:onDelete')
 	onDelete(path: string[]): void {
 		this.r.deleteNode(path)
 	}
 
-	@watch('?event:onCopy')
+	@watch('!:onCopy')
 	onCopy(path: string[]): void {
 		this.r.copyNode(path)
 	}
 
-	@watch('?event:onAdd')
-	onAdd(path: string[]): void {
-		this.r.addNode(this.content, path)
+	@watch('!:onAdd')
+	onAdd(node: INode): void {
+		this.r.addNode(node, this.path)
 	}
 }

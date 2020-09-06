@@ -40,7 +40,7 @@
 					< b-icon &
 						:icon = 'plus' |
 						:button = true |
-						@click = proxyEvent('add', path)
+						@click = proxyEvent('add', data)
 					.
 
 			< template v-if = !static

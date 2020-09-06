@@ -3,6 +3,7 @@
 
 $p = {
 	borderColor: #CCC
+	separatorBorderColor: #98C4DD
 }
 
 b-node extends i-block
@@ -15,6 +16,12 @@ b-node extends i-block
 		padding-left 12px
 
 		border-bottom 1px solid $p.borderColor
+
+	&__separator
+		position absolute
+		width 100%
+		margin-top -1px
+		border 1px dotted $p.separatorBorderColor
 
 	&__title
 		flex 1

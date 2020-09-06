@@ -8,6 +8,5 @@
 
 		< b-content &
 			:content = content |
-			:schema = schema |
 			:path = []
 		.

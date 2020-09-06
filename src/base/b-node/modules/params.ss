@@ -15,9 +15,12 @@
 
 			< b-params v-if = params | :params = params | :path = path.concat('params')
 
-			< .&__children v-if = children.length
+			< .&__children
 				< .&__children-title
-					Внутренние элементы
+					< span
+						Внутренние элементы
+
+					< b-maker :path = path.concat(childrenKey.split('.'))
 
 				< b-content &
 					:content = children |

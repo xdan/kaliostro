@@ -14,6 +14,9 @@ export * from 'super/i-block/i-block';
  */
 @component()
 export default class bNode extends iBlock {
+	/** @override */
+	readonly Root!: any;
+
 	@prop(Object)
 	data!: INode;
 
@@ -65,20 +68,21 @@ export default class bNode extends iBlock {
 		this.showParams = false;
 		this.separator = document.createElement('div');
 
-		Object.assign(this.separator.style, {
-			border: '1px solid #ccc'
-		});
+		this.separator.classList.add(this?.block?.getFullElName('separator') ?? '');
+		this.r.lock();
 	}
 
 	onDragEnd(e: MouseEvent) {
 		this.applyForNode(e, e.target as HTMLElement, (ctx, path) => {
-			this.proxyEvent('move', this.path, path, this.static || e.shiftKey);
+			this.proxyEvent('move', this.data, this.path, path, this.static || e.shiftKey);
 		});
 
 		window.removeEventListener('mouseup', this.onDragEnd);
 		window.removeEventListener('mousemove', this.onDrag);
+
 		this.separator?.remove();
 		this.separator = null;
+		this.r.unlock();
 	}
 
 	onDrag(e: MouseEvent): void {

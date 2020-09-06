@@ -28,42 +28,20 @@ export default class pRoot extends iStaticPage {
 		return value;
 	}
 
-	getValue(path: string[], source: INode[] = this.content): Nullable<INode> {
-		let
-			target: any = source;
-
-		for (const key of path) {
-			if (target[key] != null) {
-				target = target[key];
-			} else {
-				return null;
-			}
+	getValue(path: string[], source: INode[] = this.content): Nullable<any> {
+		if (path.length === 0) {
+			return source;
 		}
 
-		return target;
+		return this.field.get<INode>(path.join('.'), source);
 	}
 
 	setValue(path: string[], value: any): void {
-		path = [...path];
-
-		let
-			target: any = this.content,
-			targetKey = path.pop();
-
-		for (const key of path) {
-			if (target[key]) {
-				target = target[key];
-			}
-		}
-
-		if (target && targetKey != null) {
-			target[targetKey] = value;
-		}
+		this.field.set(['content', ...path].join('.'), value);
 	}
 
-	moveNode(source: INode[], currentPath: string[], newPath: string[], copy: boolean = false): void {
+	moveNode(node: INode, currentPath: string[], newPath: string[], copy: boolean = false): void {
 		newPath = [...newPath];
-		const node = this.getValue(currentPath, source);
 
 		const position = newPath.pop();
 		const target = this.getValue(newPath) as Nullable<any[]>;
@@ -85,12 +63,29 @@ export default class pRoot extends iStaticPage {
 	}
 
 	copyNode(path: string[]): void {
-		this.moveNode(this.content, path, path, true)
+		const node = this.getValue(path);
+		node && this.moveNode(node, path, path, true)
 	}
 
 
-	addNode(source: INode[], currentPath: string[]): void {
-		const node = Object.fastClone(this.getValue(currentPath, source)) as INode;
-		this.content.push(node);
+	addNode(node: INode, currentPath: string[]): void {
+		let target = this.getValue(currentPath) as Nullable<any[]>;
+
+		if (!target) {
+			this.setValue(currentPath, [node])
+
+		} else {
+			Object.isArray(target) && target.push(node);
+		}
+
+		this.forceUpdate();
+	}
+
+	lock(): void {
+		this.setMod('lock', true);
+	}
+
+	unlock(): void {
+		this.setMod('lock', false);
 	}
 }

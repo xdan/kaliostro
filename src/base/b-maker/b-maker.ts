@@ -3,31 +3,39 @@
  * @packageDocumentation
  */
 
-import iBlock, { component, field } from 'super/i-block/i-block';
+import iBlock, { component, system, ModsDecl, prop } from 'super/i-block/i-block';
 
 export * from 'super/i-block/i-block';
 
 /**
  * BMaker
  */
-@component()
+@component({functional: true})
 export default class bMaker extends iBlock {
-	@field()
-	showDropDown: boolean = false;
+	@prop(Array)
+	path: string[] = [];
 
-	@field()
+	/** @inheritDoc */
+	static readonly mods: ModsDecl = {
+		show: [
+			'true	',
+			['false']
+		],
+	}
+
+	@system()
 	defaultParams: Dictionary[] = require('data/default.json');
 
 	toggleDropDown() {
-		this.showDropDown = !this.showDropDown;
+		this.setMod('show', !(this.mods.show === 'true'));
 
-		if (this.showDropDown) {
+		if (this.mods.show === 'true') {
 			window.addEventListener('mouseup', this.onHide);
 		}
 	}
 
 	onHide(): void {
-		this.showDropDown = false;
+		this.setMod('show', false);
 		window.removeEventListener('mouseup', this.onHide);
 	}
 }
