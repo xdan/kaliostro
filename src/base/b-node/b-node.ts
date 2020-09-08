@@ -2,8 +2,8 @@
  * [[include:base/b-node/README.md]]
  * @packageDocumentation
  */
+import Ajv from 'ajv';
 import symbolGenerator from 'core/symbol';
-
 import iBlock, { component, prop, computed, field, hook } from 'super/i-block/i-block';
 import { INode } from "base/b-node/interface";
 
@@ -68,8 +68,9 @@ export default class bNode extends iBlock {
 	}
 
 	private separator: Nullable<HTMLElement> = null;
+	private draggable: Nullable<HTMLElement> = null;
 
-	private onDragStart(): void {
+	protected onDragStart(): void {
 		this.async.on(window, 'mouseup', this.onDragEnd, {
 			group: $$.bNodeMouse
 		})
@@ -81,7 +82,26 @@ export default class bNode extends iBlock {
 		this.separator = document.createElement('div');
 
 		this.separator.classList.add(this?.block?.getFullElName('separator') ?? '');
+
+		this.draggable = this.$el?.cloneNode(true) as Nullable<HTMLElement>;
+		if (this.draggable) {
+			this.draggable.style.width = (this.$el?.clientWidth ?? 300) + 'px';
+			document.body.appendChild(this.draggable);
+			this.setDummyPosition();
+		}
+
 		this.r.lock();
+	}
+
+	private setDummyPosition(e?: MouseEvent): void {
+		if (this.draggable) {
+			Object.assign(this.draggable.style, {
+				position: 'fixed',
+				backgroundColor: '#fff',
+				top: e ? (e.clientY + 10) + 'px' : 0,
+				display: e ? 'block' : 'none'
+			});
+		}
 	}
 
 	private onDragEnd(e: MouseEvent): void {
@@ -94,12 +114,14 @@ export default class bNode extends iBlock {
 		});
 
 		this.separator?.remove();
+		this.draggable?.remove();
 		this.separator = null;
 		this.r.unlock();
 	}
 
 	private onDrag(e: MouseEvent): void {
 		this.applyForNode(e, e.target as HTMLElement, () => {});
+		this.setDummyPosition(e);
 	};
 
 	private applyForNode(e: MouseEvent, target: Nullable<HTMLElement>, func: (ctx: bNode, path: string[]) => void) {
@@ -142,10 +164,22 @@ export default class bNode extends iBlock {
 	}
 
 	openEditDialog() {
+		const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+		const validate = ajv.compile(Object.fastClone(this.r.schema));
+
+
 		this.r.$refs.dialog.open(
 			JSON.stringify(Object.fastClone(this.data), null, "\t"),
 			(value: string): void => {
 				this.proxyEvent('set-value', this.path, JSON.parse(value));
+			}, (value: string) => {
+				const valid = validate(JSON.parse(value));
+
+				if (!valid) {
+					return JSON.stringify(validate.errors);
+				}
+
+				return '';
 			}
 		)
 	}
