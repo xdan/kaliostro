@@ -5,7 +5,30 @@ $p = {
 }
 
 p-root extends i-static-page
-	padding 8px
+	&__wrapper
+		display flex
+		padding 8px
 
 	&_lock_true
 		user-select none
+
+	&__preview
+		width 532px
+
+	&__settings
+		width calc(100% - 532px)
+
+	&__phone-view
+		size 500px 1000px
+		margin-top 16px
+		margin-left 16px
+		padding-bottom 50px
+
+		background-image url("https://teleport-preprod.edadeal.yandex.ru/static/img/iphone_6_plus.png")
+		background-repeat no-repeat
+
+	&__phone-view iframe
+		size 414px 736px
+		margin-top 116px
+		margin-left 34px
+		border 0

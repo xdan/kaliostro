@@ -11,7 +11,10 @@
     "dataProviders": {
       "cps.Collections": {},
       "cps.CampaignsList": {
-        "required": ["collectionUuid", "partnerUuid"],
+        "required": [
+          "collectionUuid",
+          "partnerUuid"
+        ],
         "properties": {
           "collectionUuid": {
             "type": "string",
@@ -29,9 +32,25 @@
     "presets": {
       "type": "string",
       "enum": [
-        "catsSlider",
         "analyticsCollection",
-        "paginationCollections"
+        "analyticsCompilation",
+        "analyticsCouponCard",
+        "catsSlider",
+        "dynamicCards",
+        "dynamicCardsSlider",
+        "pagination",
+        "paginationCollections",
+        "paginationSlider"
+      ]
+    },
+    "dataProvidersNames": {
+      "label": "Поставщик данных",
+      "type": "string",
+      "enum": [
+        "cps.Collections",
+        "cps.CampaignsList",
+        "cps.TagsList",
+        "cps.Campaign"
       ]
     },
     "componentName": {
@@ -44,9 +63,29 @@
         "b-def-box"
       ]
     },
+    "dataProvider": {
+      "type": "object",
+      "properties": {
+        "params": {
+          "type": "object",
+          "required": [
+            "dataProvider"
+          ],
+          "properties": {
+            "content": {
+              "type": "null"
+            },
+            "dataProvider": {
+              "$ref": "#/definitions/dataProvidersNames"
+            }
+          }
+        }
+      }
+    },
     "page": {
       "type": "array",
       "items": {
+        "type": "object",
         "oneOf": [
           {
             "$ref": "#/definitions/b-cats-box"
@@ -61,6 +100,30 @@
             "$ref": "#/definitions/b-def-box"
           }
         ]
+      }
+    },
+    "action": {
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "defArgs": {
+          "type": "boolean"
+        },
+        "args": {
+          "type": "array"
+        }
+      }
+    },
+    "control": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "action": {
+          "$ref": "#/definitions/action"
+        }
       }
     },
     "node": {
@@ -81,27 +144,65 @@
           "properties": {
             "slug": {
               "type": "string",
+              "minLength": 1,
               "label": "slug"
             },
             "name": {
               "type": "string",
               "label": "Название компонента"
             },
-            "presets": {
+            "preset": {
               "type": "array",
               "label": "Преднастройки",
               "items": {
                 "$ref": "#/definitions/presets"
               }
             },
-            "children": {
+            "content": {
               "$ref": "#/definitions/page"
             }
           }
         }
       }
     },
+    "node-with-elements": {
+      "properties": {
+        "params": {
+          "properties": {
+            "skeletonSize": {
+              "type": "number",
+              "minimum": 1
+            },
+            "elementRenderKey": {
+              "type": "string"
+            },
+            "elementsPerChunk": {
+              "type": "number",
+              "minimum": 1
+            },
+            "elementAction": {
+              "properties": {
+                "action": {
+                  "$ref": "#/definitions/action"
+                }
+              }
+            },
+            "elementAttrs": {
+              "properties": {
+                "retailerIcon": {
+                  "type": "boolean"
+                },
+                "hasAds": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "b-cats-box": {
+      "type": "object",
       "label": "Блок категорий",
       "allOf": [
         {
@@ -109,33 +210,57 @@
         },
         {
           "properties": {
-            "params": {
-              "content": null,
-              "dataProvider": {
-                "type": "string",
-                "enum": {
-                  "$ref": "#/definitions/dataProviders"
-                },
-                "label": "Поставщик данных"
-              }
+            "component": {
+              "const": "b-cats-box"
             }
           }
+        },
+        {
+          "$ref": "#/definitions/dataProvider"
         }
       ]
     },
     "b-vertical-box": {
+      "type": "object",
       "label": "Вертикальный блок карточек",
       "allOf": [
         {
-          "$ref": "#/definitions/b-cats-box"
+          "$ref": "#/definitions/node"
+        },
+        {
+          "properties": {
+            "component": {
+              "const": "b-vertical-box"
+            },
+            "request": {
+              "type": "object"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/dataProvider"
+        },
+        {
+          "$ref": "#/definitions/node-with-elements"
         }
       ]
     },
     "b-slider-box": {
+      "type": "object",
       "label": "Горизонтальный блок карточек",
       "allOf": [
         {
-          "$ref": "#/definitions/b-cats-box"
+          "$ref": "#/definitions/node"
+        },
+        {
+          "properties": {
+            "component": {
+              "const": "b-slider-box"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/dataProvider"
         },
         {
           "properties": {
@@ -146,27 +271,83 @@
               }
             }
           }
+        },
+        {
+          "$ref": "#/definitions/node-with-elements"
         }
       ]
     },
     "b-def-box": {
+      "type": "object",
       "label": "Составной блок",
-
       "allOf": [
         {
           "$ref": "#/definitions/node"
         },
         {
           "properties": {
+            "component": {
+              "const": "b-def-box"
+            },
+            "params": {
+              "type": "object",
+              "properties": {
+                "style": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "main": {
+                      "type": "string"
+                    },
+                    "desc": {
+                      "type": "string"
+                    },
+                    "icon": {
+                      "type": "string",
+                      "format": "url"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
             "params": {
               "mainColor": {
                 "type": "text",
-                "label": "Основной цвет"
+                "label": "Основной цвет",
+                "format": "#[0-9a-fA-F]{3,6}"
               },
               "style": {
                 "type": "text",
                 "label": "Стиль"
+              },
+              "controls": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/control"
+                }
               }
+            }
+          }
+        }
+      ]
+    },
+    "b-swipe-box": {
+      "type": "object",
+      "label": "Блок со свайпом",
+      "allOf": [
+        {
+          "$ref": "#/definitions/node"
+        },
+        {
+          "properties": {
+            "component": {
+              "const": "b-swipe-box"
             }
           }
         }

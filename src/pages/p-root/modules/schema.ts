@@ -9,3 +9,34 @@ export function resolveRef(item: SchemaRef | SchemaItem): SchemaItem {
 
 	return item as SchemaItem;
 }
+
+export function getKey(path: string): Nullable<SchemaItem> {
+	const chain = path.substr(2).split('/');
+	let value: CanUndef<any> = schema;
+
+	do {
+		const key = chain.shift();
+
+		if (key == null || !value) {
+			return null;
+		}
+
+		value = value[key];
+	} while (chain.length && value != null);
+
+	return value;
+}
+
+export class SchemaResolver {
+	getProperties(node: SchemaItem): Dictionary<SchemaItem> {
+		const props = node.properties ?? Object.createDict();
+
+		if (node.allOf) {
+			node.allOf.forEach(elm => {
+				Object.mixin(true, props, this.getProperties(resolveRef(elm)));
+			});
+		}
+
+		return props;
+	}
+}

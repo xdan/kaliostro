@@ -26,5 +26,29 @@
     "component": "b-swipe-box",
     "params": {
     }
+  },
+  {
+    "component": "b-slider-box",
+    "params": {
+      "dataProvider": "cps.Collections",
+      "elementAction": {
+        "action": {
+          "defArgs": true,
+          "method": "r.openCpsCollection"
+        }
+      },
+      "elementRenderKey": "uuid",
+      "elementsPerChunk": 10,
+      "preset": [
+        "catsSlider",
+        "analyticsCollection",
+        "paginationCollections"
+      ],
+      "request": {
+        "excludeCollectionUuid": "cb3ccb1d-cce6-44ff-87d0-6810bd9f42c9"
+      },
+      "slug": "Коллекции",
+      "uuid": "c7808612-9d37-4831-bb66-0e02c26b37c6"
+    }
   }
 ]

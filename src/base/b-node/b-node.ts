@@ -3,9 +3,10 @@
  * @packageDocumentation
  */
 import Ajv from 'ajv';
+import localize from 'ajv-i18n';
 import symbolGenerator from 'core/symbol';
-import iBlock, { component, prop, computed, field, hook } from 'super/i-block/i-block';
-import { INode } from "base/b-node/interface";
+import iBlock, {component, prop, computed, field, hook} from 'super/i-block/i-block';
+import {INode} from "base/b-node/interface";
 
 export const
 	$$ = symbolGenerator();
@@ -70,7 +71,7 @@ export default class bNode extends iBlock {
 	private separator: Nullable<HTMLElement> = null;
 	private draggable: Nullable<HTMLElement> = null;
 
-	protected onDragStart(): void {
+	protected async onDragStart(): Promise<void> {
 		this.async.on(window, 'mouseup', this.onDragEnd, {
 			group: $$.bNodeMouse
 		})
@@ -79,11 +80,15 @@ export default class bNode extends iBlock {
 		})
 
 		this.showParams = false;
+
+		await this.r.nextTick();
+
 		this.separator = document.createElement('div');
 
 		this.separator.classList.add(this?.block?.getFullElName('separator') ?? '');
 
 		this.draggable = this.$el?.cloneNode(true) as Nullable<HTMLElement>;
+
 		if (this.draggable) {
 			this.draggable.style.width = (this.$el?.clientWidth ?? 300) + 'px';
 			document.body.appendChild(this.draggable);
@@ -120,7 +125,8 @@ export default class bNode extends iBlock {
 	}
 
 	private onDrag(e: MouseEvent): void {
-		this.applyForNode(e, e.target as HTMLElement, () => {});
+		this.applyForNode(e, e.target as HTMLElement, () => {
+		});
 		this.setDummyPosition(e);
 	};
 
@@ -159,27 +165,51 @@ export default class bNode extends iBlock {
 		} while (target && target !== document.body);
 	}
 
-	proxyEvent(event: string, ...args: any) {
+	proxyEvent(event: string, ...args: any): void {
 		this.$parent?.emit(event, ...args);
 	}
 
 	openEditDialog() {
 		const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
-		const validate = ajv.compile(Object.fastClone(this.r.schema));
-
+		const validate = ajv.compile(this.r.schema);
 
 		this.r.$refs.dialog.open(
 			JSON.stringify(Object.fastClone(this.data), null, "\t"),
 			(value: string): void => {
 				this.proxyEvent('set-value', this.path, JSON.parse(value));
 			}, (value: string) => {
-				const valid = validate(JSON.parse(value));
+				try {
+					const valid = validate([JSON.parse(value)]);
 
-				if (!valid) {
-					return JSON.stringify(validate.errors);
+					if (!valid && validate.errors) {
+						localize.ru(validate.errors);
+						return Array.from(validate.errors.reduce((acc, item) => {
+							const message: string[] = [];
+
+							message.push(item.dataPath.replace('[0]', 'node'));
+							if (item.message) {
+								if (item.message.includes('hould match exactly one schema in oneOf')) {
+									return acc;
+								}
+
+								message.push(item.message);
+							}
+
+							const allowedValues = this.field.get<string[]>('params.allowedValues', item);
+							if (allowedValues) {
+								message.push(allowedValues.toString())
+							}
+
+							acc.add(message.join(' - '));
+
+							return acc;
+						}, new Set<string>())).join('\n');
+					}
+				} catch (e) {
+					return e.message;
 				}
 
-				return '';
+				return 'valid';
 			}
 		)
 	}

@@ -10,7 +10,10 @@ export interface SchemaRef {
 }
 
 export interface SchemaItem {
-	type: "object" | "array" | "boolean" | "string" | "number" | "integer" | "null",
-	items: SchemaItem,
-	oneOf: SchemaItem
+	type: "object" | "array" | "boolean" | "string" | "number" | "integer" | "null";
+	items?: SchemaItem;
+	oneOf?: SchemaItem[];
+	anyOf?: SchemaItem[];
+	allOf?: SchemaItem[];
+	properties?: Dictionary<SchemaItem>;
 }

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "ajv": "^6.12.4",
+    "ajv-i18n": "^3.5.0",
     "codemirror": "^5.57.0",
     "stlint-v4fire": "^1.0.37"
   }

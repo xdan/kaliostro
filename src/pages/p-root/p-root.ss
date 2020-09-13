@@ -4,11 +4,17 @@
 
 - template index() extends ['i-static-page.component'].index
 	- block body
-		< b-dialog ref = dialog
+		< .&__wrapper
+			< .&__settings
+				< b-dialog ref = dialog
 
-		< b-maker
+				< b-maker
 
-		< b-content &
-			:content = content |
-			:path = []
-		.
+				< b-content &
+					:content = content |
+					:path = []
+				.
+
+			< .&__preview
+				< .&__phone-view
+					< iframe ref = preview | src = http://localhost:4444

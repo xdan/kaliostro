@@ -1,4 +1,8 @@
 package('b-params')
 	.extends('i-block')
-	.dependencies('b-button', 'b-select')
+	.dependencies(
+		'b-button',
+		'b-select',
+		'b-input'
+	)
 

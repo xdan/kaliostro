@@ -1,8 +1,8 @@
-import iStaticPage, { component, field, system } from 'super/i-static-page/i-static-page';
+import iStaticPage, { component, field, system, watch } from 'super/i-static-page/i-static-page';
 import { INode } from 'base/b-node/interface';
-import { resolveRef } from 'pages/p-root/modules/schema';
+import { getKey, resolveRef, SchemaResolver } from 'pages/p-root/modules/schema';
 import bDialog from "base/dialogs/b-dialog/b-dialog";
-import {SchemaItem, SchemaRef} from "pages/p-root/modules/interface";
+import { SchemaItem, SchemaRef } from "pages/p-root/modules/interface";
 
 export * from 'super/i-static-page/i-static-page';
 
@@ -10,6 +10,7 @@ export * from 'super/i-static-page/i-static-page';
 export default class pRoot extends iStaticPage {
 	readonly $refs!: iStaticPage["$refs"] & {
 		dialog: bDialog;
+		preview: HTMLIFrameElement;
 	};
 
 	@field()
@@ -18,21 +19,11 @@ export default class pRoot extends iStaticPage {
 	@system()
 	schema = require('data/schema.json');
 
+	@system(() => new SchemaResolver())
+	resolver!: SchemaResolver;
+
 	getKey(path: string) {
-		const chain = path.split('/');
-		let value: CanUndef<any> = this.schema;
-
-		do {
-			const key = chain.shift();
-
-			if (key == null || !value) {
-				return null;
-			}
-
-			value = value[key];
-		} while (chain.length && value != null);
-
-		return value;
+		return getKey(path);
 	}
 
 	getValue(path: string[], source: INode[] = this.content): Nullable<any> {
@@ -93,5 +84,14 @@ export default class pRoot extends iStaticPage {
 
 	resolveRef(item: SchemaRef | SchemaItem): SchemaItem {
 		return resolveRef(item);
+	}
+
+	@watch('content')
+	onChange() {
+		this.$refs.preview?.contentWindow?.postMessage('preview:content:' + JSON.stringify(
+			Object.fastClone(
+				this.content.filter(c => c != null)
+			)
+		), '*');
 	}
 }

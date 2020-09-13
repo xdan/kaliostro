@@ -1,9 +1,9 @@
 - namespace [%fileName%]
 
-- include 'super/i-block'|b as placeholder
+- include 'super/i-input'|b as placeholder
 
-- template index() extends ['i-block'].index
-	- block body
+- template index() extends ['i-input'].index
+	- block input
 		< select.uk-select.uk-form-small @change = onChange
 			< option &
 				v-for = v in options |
