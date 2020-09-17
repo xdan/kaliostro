@@ -2,8 +2,8 @@
  * [[include:base/b-node/README.md]]
  * @packageDocumentation
  */
-// import Ajv from 'ajv';
-// import localize from 'ajv-i18n/localize/ru';
+import Ajv from 'ajv';
+import localize from 'ajv-i18n/localize/ru';
 import symbolGenerator from 'core/symbol';
 import iBlock, {component, prop, computed, field, hook} from 'super/i-block/i-block';
 import {INode} from "base/b-node/interface";

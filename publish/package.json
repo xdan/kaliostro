@@ -1,0 +1,9 @@
+{
+  "name": "kaliostro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "kaliostro.min.js",
+  "keywords": [],
+  "author": "Chupurnov Valeriy",
+  "license": "MIT"
+}
