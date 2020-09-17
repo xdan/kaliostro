@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const root = process.cwd();
 const clientFolder = path.resolve(root, 'dist/client');
-const excludes = ['dependencies.js', 'uikit.js'];
+const excludes = ['dependencies.js'];
 
 const sort = [
 	'init.js',
@@ -21,7 +21,6 @@ const
 	CleanCSS = require('clean-css'),
 	{ minify } = require('terser');
 
-// cssMinifier()
 /**
  * Read all js and css files and concat it
  * @param {string} folder
@@ -56,7 +55,8 @@ function concatDirectory(folder, result = {
 		result.cache.add(fileName);
 
 		if (fs.statSync(fileName).isDirectory()) {
-			const subResult = concatDirectory(fileName, result);
+			concatDirectory(fileName, result);
+
 		} else {
 			const ext = path.extname(fileName);
 
@@ -78,21 +78,13 @@ function concatDirectory(folder, result = {
 
 	concatDirectory(clientFolder, result);
 
-	try {
-		if (!fs.existsSync(publishFolder)) {
-			fs.mkdirSync(publishFolder);
-		}
+	const minifyJS = await minify(result.js.join(';\n'), {
+		sourceMap: false,
+		keep_classnames: true
+	});
 
-		const minifyJS = await minify(result.js.join(';\n'), {
-			sourceMap: false,
-			keep_classnames: true
-		});
-		fs.writeFileSync(path.resolve(publishFolder, 'kaliostro.min.js'), minifyJS.code);
-		// fs.writeFileSync(path.resolve(publishFolder, 'kaliostro.min.js'), result.js.join('\n'));
+	fs.writeFileSync(path.resolve(publishFolder, 'kaliostro.min.js'), minifyJS.code);
 
-		const miniCSS = new CleanCSS({}).minify(result.css.join(''));
-		fs.writeFileSync(path.resolve(publishFolder, 'kaliostro.min.css'), miniCSS.styles);
-	} finally {
-		// fs.rmdirSync(publishFolder, {recursive: true})
-	}
+	const miniCSS = new CleanCSS({}).minify(result.css.join(''));
+	fs.writeFileSync(path.resolve(publishFolder, 'kaliostro.min.css'), miniCSS.styles);
 })();

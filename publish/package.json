@@ -1,9 +1,13 @@
 {
   "name": "kaliostro",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Admin by schema.json",
   "main": "kaliostro.min.js",
   "keywords": [],
-  "author": "Chupurnov Valeriy",
-  "license": "MIT"
+  "author": "Chupurnov Valeriy<chupurnov@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xdan/kaliostro"
+  }
 }
