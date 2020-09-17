@@ -7,7 +7,8 @@
     "build": "export NODE_ENV=development && gulp build:tsconfig && webpack --watch --debug false",
     "prod": "rm -rf ./dist/client && export NODE_ENV=production && gulp build:tsconfig && webpack --debug false --environment production",
     "start": "node webview.app",
-    "newversion": "npm run prod && node publish.js && cd ./publish && npm version patch --no-git-tag-version && npm publish ./",
+    "newversion": "npm run prod && node publish.js && cd ./publish && npm version patch --no-git-tag-version && npm run newversiongit && npm publish ./",
+    "newversiongit": "git add --all  && git commit -m \"New version $npm_package_version. Read more https://github.com/xdan/kaliostro/CHANGELOG.MD\" && git tag $npm_package_version && git push --tags origin master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
