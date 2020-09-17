@@ -4,6 +4,7 @@
  */
 
 import iBlock, { component, prop, watch } from 'super/i-block/i-block';
+import iconsPlugin from 'uikit/dist/js/uikit-icons.min.js';
 
 export * from 'super/i-block/i-block';
 
@@ -12,6 +13,17 @@ const iconToCursor = {
 	'chevron-left': 'pointer',
 	'chevron-down': 'pointer',
 }
+
+const iconsStore = {};
+iconsPlugin({
+	icon: {
+		add(store): void {
+			Object.assign(iconsStore, store);
+		}
+	}
+});
+debugger
+console.log(iconsStore);
 
 /**
  * BIcon
@@ -40,6 +52,10 @@ export default class bIcon extends iBlock {
 		}
 
 		return  this.mods.button === 'true' ? 'pointer' : 'default';
+	}
+
+	get svg(): string {
+		return iconsStore[this.icon] || ''
 	}
 
 	@watch('?$el:click')

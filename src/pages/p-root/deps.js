@@ -15,8 +15,8 @@ deps.styles.set('codemirror-foldgutter', {
 	src: 'codemirror/addon/fold/foldgutter.css'
 });
 
-deps.scripts.set('uikit', 'uikit/dist/js/uikit.js');
-deps.scripts.set('uikit-icons', 'uikit/dist/js/uikit-icons.js');
+// deps.scripts.set('uikit', 'uikit/dist/js/uikit-core.js');
+// deps.scripts.set('uikit-icons', 'uikit/dist/js/uikit-icons.js');
 deps.scripts.set('codemirror', 'codemirror/lib/codemirror.js');
 deps.scripts.set('codemirror-javascript', 'codemirror/mode/javascript/javascript.js');
 deps.scripts.set('codemirror-javascript-foldcode', 'codemirror/addon/fold/foldcode.js');

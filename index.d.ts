@@ -7,3 +7,10 @@ declare function include<PATH extends keyof IncludeReturns>(path: PATH, ...args:
 interface HTMLElement {
 	component?: any;
 }
+
+interface Window {
+	v4fire: {
+		renderTo(selector: string): Promise<any>;
+	};
+}
+

@@ -11,7 +11,7 @@
 
 				< template v-if = !static
 					< b-icon &
-						:icon = !showParams ? 'chevron-left' : 'chevron-down' |
+						:icon = !showParams ? 'chevron-right' : 'chevron-down' |
 						:button = true |
 						@click = toggleParams
 					.
