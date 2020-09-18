@@ -4,6 +4,8 @@ const root = process.cwd();
 const clientFolder = path.resolve(root, 'dist/client');
 const excludes = ['dependencies.js'];
 
+console.log('Make published files');
+
 const sort = [
 	'init.js',
 	'std.js',
@@ -54,6 +56,8 @@ function concatDirectory(folder, result = {
 		}
 		result.cache.add(fileName);
 
+		console.log('Found: ' + fileName);
+
 		if (fs.statSync(fileName).isDirectory()) {
 			concatDirectory(fileName, result);
 
@@ -87,4 +91,6 @@ function concatDirectory(folder, result = {
 
 	const miniCSS = new CleanCSS({}).minify(result.css.join(''));
 	fs.writeFileSync(path.resolve(publishFolder, 'kaliostro.min.css'), miniCSS.styles);
+
+	console.log('Generation publish files - finished');
 })();
