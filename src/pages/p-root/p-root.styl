@@ -7,6 +7,7 @@ $p = {
 p-root extends i-static-page
 	&__wrapper
 		display flex
+		justify-content stretch
 		padding 8px
 
 	&_lock_true
@@ -16,7 +17,7 @@ p-root extends i-static-page
 		width 532px
 
 	&__settings
-		width calc(100% - 532px)
+		flex 1
 
 	&__phone-view
 		position sticky

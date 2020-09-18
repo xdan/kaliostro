@@ -9,7 +9,7 @@
 				< button.uk-modal-close-default.uk-icon.uk-close :uk-close = true | @click = close
 
 				< .&__area
-					< textarea.uk-textarea ref = textarea
+					< textarea.&__textarea.uk-textarea ref = textarea
 
 				< .&__error-box ref = errorBox
 

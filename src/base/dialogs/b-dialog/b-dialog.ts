@@ -5,6 +5,10 @@
 
 import iBlock, { component, system } from 'super/i-block/i-block';
 import bButton from "form/b-button/b-button";
+import symbolGenerator from 'core/symbol';
+
+export const
+	$$ = symbolGenerator();
 
 export * from 'super/i-block/i-block';
 
@@ -30,28 +34,37 @@ export default class bDialog extends iBlock {
 
 		this.$refs.textarea.value = value;
 
-		this.editor = CodeMirror.fromTextArea(this.$refs.textarea, {
-			name: "javascript",
-			json: true,
-			lineNumbers: true,
-			foldGutter: true,
-			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-		});
+		const onChange = this.async.debounce(() => {
+			this.$refs.errorBox.innerText = validate(this.$refs.textarea.value);
+		}, 300);
+
+		if (typeof CodeMirror !== 'undefined') {
+			this.editor = CodeMirror.fromTextArea(this.$refs.textarea, {
+				name: "javascript",
+				json: true,
+				lineNumbers: true,
+				foldGutter: true,
+				gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+			});
+
+			this.editor.on('change', onChange);
+
+		} else {
+			this.async.on(this.$refs.textarea, 'input', onChange, {
+				group: $$.textAreaChange
+			});
+		}
 
 		this.$refs.save.once('click', () => {
 			clb(this.editor.getValue());
 			this.close();
 		});
 
-		this.editor.on('change', this.async.debounce(() => {
-			this.$refs.errorBox.innerText = validate(this.editor.getValue());
-		}, 300));
-
-		this.$refs.errorBox.innerText = validate(this.editor.getValue());
+		this.$refs.errorBox.innerText = validate(this.$refs.textarea.value);
 	}
 
 	close(): void {
 		this.$refs.dialog.style.display = 'none';
-		this.editor.toTextArea();
+		this.editor?.toTextArea();
 	}
 }

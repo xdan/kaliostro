@@ -22,8 +22,6 @@ iconsPlugin({
 		}
 	}
 });
-debugger
-console.log(iconsStore);
 
 /**
  * BIcon

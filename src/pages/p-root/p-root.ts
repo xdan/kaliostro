@@ -1,4 +1,4 @@
-import iStaticPage, { component, field, system, watch } from 'super/i-static-page/i-static-page';
+import iStaticPage, { component, field, system, watch, prop } from 'super/i-static-page/i-static-page';
 import { INode } from 'base/b-node/interface';
 import { getKey, resolveRef, SchemaResolver } from 'pages/p-root/modules/schema';
 import bDialog from "base/dialogs/b-dialog/b-dialog";
@@ -10,11 +10,20 @@ export * from 'super/i-static-page/i-static-page';
 export default class pRoot extends iStaticPage {
 	readonly $refs!: iStaticPage["$refs"] & {
 		dialog: bDialog;
-		preview: HTMLIFrameElement;
+		preview: Nullable<HTMLIFrameElement>;
 	};
 
-	@field()
-	content: INode[] = require('data/content.json');
+	@prop(Function)
+	onChangeContent!: Nullable<(value: string) => void>;
+
+	@prop(String)
+	previewUrl: string = 'http://localhost:4444';
+
+	@prop(Array)
+	contentProp: INode[] = require('data/content.json');
+
+	@field((o) => o.sync.link())
+	content!: INode[];
 
 	@system()
 	schema = require('data/schema.json');
@@ -88,10 +97,14 @@ export default class pRoot extends iStaticPage {
 
 	@watch('content')
 	onChange() {
-		this.$refs.preview?.contentWindow?.postMessage('preview:content:' + JSON.stringify(
+		const json = JSON.stringify(
 			Object.fastClone(
 				this.content.filter(c => c != null)
 			)
-		), '*');
+		);
+
+		this.$refs.preview?.contentWindow?.postMessage('preview:content:' + json, '*');
+
+		this.onChangeContent?.(json);
 	}
 }

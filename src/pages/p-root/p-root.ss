@@ -15,6 +15,9 @@
 					:path = []
 				.
 
-			< .&__preview
+			< .&__preview v-if = previewUrl
 				< .&__phone-view
-					< iframe ref = preview | src = http://localhost:4444
+					< iframe &
+						ref = preview |
+						src = previewUrl
+					.

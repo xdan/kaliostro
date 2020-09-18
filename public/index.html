@@ -10,7 +10,33 @@
 	<script src="./kaliostro.min.js"></script>
 </head>
 <body>
-	<div id="root"></div>
+	<textarea id="root">[
+  {
+    "component": "b-slider-box",
+    "params": {
+			"slug": "test-node",
+      "dataProvider": "cps.Collections",
+      "elementAction": {
+        "action": {
+          "defArgs": true,
+          "method": "r.openCpsCollection"
+        }
+      },
+      "elementRenderKey": "uuid",
+      "elementsPerChunk": 10,
+      "preset": [
+        "catsSlider",
+        "analyticsCollection",
+        "paginationCollections"
+      ],
+      "request": {
+        "excludeCollectionUuid": "cb3ccb1d-cce6-44ff-87d0-6810bd9f42c9"
+      },
+      "uuid": "c7808612-9d37-4831-bb66-0e02c26b37c6"
+    }
+  }
+]
+</textarea>
 	<script>
 		v4fire.renderTo('#root');
 	</script>
