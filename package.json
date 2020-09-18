@@ -1,13 +1,13 @@
 {
   "name": "kaliostro",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "export NODE_ENV=development && gulp build:tsconfig && webpack --watch --debug false",
     "prod": "rm -rf ./dist/client && export NODE_ENV=production && gulp build:tsconfig && webpack --debug false --environment production",
     "start": "node webview.app",
-    "newversion": "npm run prod && node publish.js && cd public && npm version patch --no-git-tag-version && npm run newversiongit && npm publish ./",
+    "newversion": "npm version patch --no-git-tag-version && npm run prod && node publish.js && npm run newversiongit && cd public && npm version patch --no-git-tag-version && npm publish ./",
     "newversiongit": "git add --all  && git commit -m \"New version $npm_package_version. Read more https://github.com/xdan/kaliostro/CHANGELOG.MD\" && git tag $npm_package_version && git push --tags origin master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
