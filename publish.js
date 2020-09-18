@@ -74,7 +74,7 @@ function concatDirectory(folder, result = {
 (async () => {
 	const
 		result = concatDirectory(path.resolve(clientFolder, 'lib')),
-		publishFolder = path.resolve(root, 'publish');
+		publishFolder = path.resolve(root, 'public');
 
 	concatDirectory(clientFolder, result);
 
