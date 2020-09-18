@@ -19,5 +19,5 @@
 				< .&__phone-view
 					< iframe &
 						ref = preview |
-						src = previewUrl
+						:src = previewUrl
 					.
