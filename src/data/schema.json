@@ -18,11 +18,11 @@
         "properties": {
           "collectionUuid": {
             "type": "string",
-            "label": "UUID Кампании"
+            "title": "UUID Кампании"
           },
           "partnerUuid": {
             "type": "string",
-            "label": "UUID Ритейлера"
+            "title": "UUID Ритейлера"
           }
         }
       },
@@ -44,7 +44,7 @@
       ]
     },
     "dataProvidersNames": {
-      "label": "Поставщик данных",
+      "title": "Поставщик данных",
       "type": "string",
       "enum": [
         "cps.Collections",
@@ -54,6 +54,7 @@
       ]
     },
     "componentName": {
+      "title": "Виджет",
       "type": "string",
       "enum": [
         "b-cats-box",
@@ -127,6 +128,7 @@
       }
     },
     "node": {
+      "title": "Настройки",
       "type": "object",
       "required": [
         "component",
@@ -137,7 +139,11 @@
           "$ref": "#/definitions/componentName"
         },
         "params": {
+          "title": "Параметры",
           "type": "object",
+          "options": {
+            "collapsed": true
+          },
           "required": [
             "slug"
           ],
@@ -145,15 +151,16 @@
             "slug": {
               "type": "string",
               "minLength": 1,
-              "label": "slug"
+              "title": "slug"
             },
             "name": {
               "type": "string",
-              "label": "Название компонента"
+              "title": "Название компонента"
             },
             "preset": {
               "type": "array",
-              "label": "Преднастройки",
+              "title": "Преднастройки",
+              "uniqueItems": true,
               "items": {
                 "$ref": "#/definitions/presets"
               }
@@ -203,7 +210,6 @@
     },
     "b-cats-box": {
       "type": "object",
-      "label": "Блок категорий",
       "allOf": [
         {
           "$ref": "#/definitions/node"
@@ -222,7 +228,6 @@
     },
     "b-vertical-box": {
       "type": "object",
-      "label": "Вертикальный блок карточек",
       "allOf": [
         {
           "$ref": "#/definitions/node"
@@ -247,7 +252,6 @@
     },
     "b-slider-box": {
       "type": "object",
-      "label": "Горизонтальный блок карточек",
       "allOf": [
         {
           "$ref": "#/definitions/node"
@@ -267,7 +271,7 @@
             "params": {
               "uuid": {
                 "type": "text",
-                "label": "uuid"
+                "title": "uuid"
               }
             }
           }
@@ -279,7 +283,6 @@
     },
     "b-def-box": {
       "type": "object",
-      "label": "Составной блок",
       "allOf": [
         {
           "$ref": "#/definitions/node"
@@ -319,12 +322,12 @@
             "params": {
               "mainColor": {
                 "type": "text",
-                "label": "Основной цвет",
+                "title": "Основной цвет",
                 "format": "#[0-9a-fA-F]{3,6}"
               },
               "style": {
                 "type": "text",
-                "label": "Стиль"
+                "title": "Стиль"
               },
               "controls": {
                 "type": "array",
@@ -339,7 +342,6 @@
     },
     "b-swipe-box": {
       "type": "object",
-      "label": "Блок со свайпом",
       "allOf": [
         {
           "$ref": "#/definitions/node"

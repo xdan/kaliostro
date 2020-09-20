@@ -72,6 +72,6 @@ window.v4fire = {
 	}
 };
 
-if (!IS_PROD) {
-	resolveAfterDOMLoaded().then(() => semaphore('domReady'));
-}
+//#unless IS_PROD
+export default resolveAfterDOMLoaded().then(() => semaphore('domReady'));
+//#endunless

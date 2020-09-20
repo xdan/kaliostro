@@ -11,9 +11,14 @@ export interface SchemaRef {
 
 export interface SchemaItem {
 	type: "object" | "array" | "boolean" | "string" | "number" | "integer" | "null";
+	label?: string;
 	items?: SchemaItem;
 	oneOf?: SchemaItem[];
 	anyOf?: SchemaItem[];
 	allOf?: SchemaItem[];
 	properties?: Dictionary<SchemaItem>;
+}
+
+export interface IRenderInput extends SchemaItem {
+	key: string;
 }

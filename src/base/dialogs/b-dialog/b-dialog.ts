@@ -47,7 +47,10 @@ export default class bDialog extends iBlock {
 				gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 			});
 
-			this.editor.on('change', onChange);
+			this.editor.on('change', () => {
+				this.$refs.textarea.value = this.editor.getValue();
+				onChange();
+			});
 
 		} else {
 			this.async.on(this.$refs.textarea, 'input', onChange, {
@@ -56,7 +59,7 @@ export default class bDialog extends iBlock {
 		}
 
 		this.$refs.save.once('click', () => {
-			clb(this.editor.getValue());
+			clb(this.$refs.textarea.value);
 			this.close();
 		});
 

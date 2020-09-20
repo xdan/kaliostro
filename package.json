@@ -28,5 +28,8 @@
     "stlint-v4fire": "^1.0.37",
     "uikit": "^3.5.7",
     "v4fire-cli": "^1.0.14"
+  },
+  "dependencies": {
+    "@json-editor/json-editor": "^2.3.0"
   }
 }

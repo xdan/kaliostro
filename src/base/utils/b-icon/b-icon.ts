@@ -4,7 +4,7 @@
  */
 
 import iBlock, { component, prop, watch } from 'super/i-block/i-block';
-import iconsPlugin from 'uikit/dist/js/uikit-icons.min.js';
+import iconsStore from "base/utils/b-icon/modules/icons";
 
 export * from 'super/i-block/i-block';
 
@@ -14,14 +14,7 @@ const iconToCursor = {
 	'chevron-down': 'pointer',
 }
 
-const iconsStore = {};
-iconsPlugin({
-	icon: {
-		add(store): void {
-			Object.assign(iconsStore, store);
-		}
-	}
-});
+
 
 /**
  * BIcon

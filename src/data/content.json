@@ -2,6 +2,7 @@
   {
     "component": "b-slider-box",
     "params": {
+      "slug": "collection-coupons-1",
       "dataProvider": "cps.Collections",
       "elementAction": {
         "action": {
@@ -19,7 +20,6 @@
       "request": {
         "excludeCollectionUuid": "cb3ccb1d-cce6-44ff-87d0-6810bd9f42c9"
       },
-      "slug": "collection-coupons-1",
       "uuid": "c7808612-9d37-4831-bb66-0e02c26b37c6"
     }
   }

@@ -188,7 +188,7 @@ export default class bNode extends iBlock {
 
 							message.push(item.dataPath.replace('[0]', 'node'));
 							if (item.message) {
-								if (item.message.includes('hould match exactly one schema in oneOf')) {
+								if (item.message.includes('должно соответствовать в точности одной схемe в "oneOf"')) {
 									return acc;
 								}
 
@@ -209,7 +209,7 @@ export default class bNode extends iBlock {
 					return e.message;
 				}
 
-				return 'valid';
+				return '';
 			}
 		)
 	}

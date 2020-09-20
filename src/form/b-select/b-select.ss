@@ -4,10 +4,14 @@
 
 - template index() extends ['i-input'].index
 	- block input
-		< select.uk-select.uk-form-small @change = onChange
+		< select.uk-select.uk-form-small &
+			:multiple = multiple |
+			:size = size |
+			@change = onChange
+		.
 			< option &
 				v-for = v in options |
-				:selected = value === v |
+				:selected = values.includes(v) |
 				:value = v
 			.
 				{{ v|h}}

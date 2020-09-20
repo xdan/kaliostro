@@ -4,3 +4,5 @@ export interface INode {
 		content?: INode[];
 	}
 }
+
+export type INodes = INode[];
