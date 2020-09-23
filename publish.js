@@ -2,22 +2,14 @@ const fs = require('fs-extra');
 const path = require('path');
 const root = process.cwd();
 const clientFolder = path.resolve(root, 'dist/client');
-const excludes = ['dependencies.js'];
+
+const
+	config = require('./config/default')
 
 console.log('Make published files');
 
-const sort = [
-	'init.js',
-	'std.js',
-	'assets.js',
-	'codemirror.js',
-	'requestidlecallback.js',
-	'eventemitter2.js',
-	'vue.js',
-	'vendor.js',
-	'root_tpl.js',
-	'root.js',
-];
+const
+	{sort, excludes} = config.publishSettings;
 
 const
 	CleanCSS = require('clean-css'),

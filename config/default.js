@@ -10,22 +10,21 @@ module.exports = config.createConfig({dirs: [__dirname, 'client']}, {
 
 	platform: 'kaliostro',
 
-	theme: () => 'android',
-
-	api: {
-		proxy() {
-			return o('api-proxy', {
-				env: true,
-				type: 'boolean',
-				default: true
-			});
-		},
-	},
-
-	runtime() {
-		return {
-			...config.runtime(),
-			debug: false
-		}
+	publishSettings: {
+		sort: [
+			'init.js',
+			'std.js',
+			'assets.js',
+			'codemirror.js',
+			'requestidlecallback.js',
+			'eventemitter2.js',
+			'vue.js',
+			'vendor.js',
+			'root_tpl.js',
+			'root.js',
+		],
+		excludes: [
+			'dependencies.js'
+		]
 	}
 });
