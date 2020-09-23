@@ -15,4 +15,5 @@ _Note: Gaps between patch versions are faulty, broken or test releases._
 
 #### :rocket: New Feature
 
-Added `CHANGELOG`. Exclude and sort settings were separated in config.js
+* Config connected with include function
+* Added `CHANGELOG`. Exclude and sort settings were separated in config.js

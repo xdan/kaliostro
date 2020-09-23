@@ -1,10 +1,12 @@
+require('config');
+
 const fs = require('fs-extra');
 const path = require('path');
 const root = process.cwd();
 const clientFolder = path.resolve(root, 'dist/client');
 
 const
-	config = require('./config/default')
+	config = include('config/default')
 
 console.log('Make published files');
 
