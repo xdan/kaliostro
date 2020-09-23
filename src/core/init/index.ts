@@ -2,9 +2,6 @@ import 'core/init/state';
 import 'core/init/abt';
 import 'core/init/prefetch';
 
-import semaphore from 'core/init/semaphore';
-import { resolveAfterDOMLoaded } from 'core/event';
-
 import Component, { rootComponents } from 'core/component';
 
 window.v4fire = {
@@ -73,5 +70,8 @@ window.v4fire = {
 };
 
 //#unless IS_PROD
+import semaphore from 'core/init/semaphore';
+import { resolveAfterDOMLoaded } from 'core/event';
+
 export default resolveAfterDOMLoaded().then(() => semaphore('domReady'));
 //#endunless
