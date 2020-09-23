@@ -70,8 +70,9 @@ window.v4fire = {
 };
 
 //#unless IS_PROD
-import semaphore from 'core/init/semaphore';
 import { resolveAfterDOMLoaded } from 'core/event';
 
-export default resolveAfterDOMLoaded().then(() => semaphore('domReady'));
+export default resolveAfterDOMLoaded().then(() => {
+	window.v4fire.renderTo('[data-root-component]');
+});
 //#endunless
