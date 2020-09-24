@@ -5,6 +5,7 @@
 - template index() extends ['i-block'].index
 	- block body
 		< button.&__button.uk-button &
+			type = button |
 			:class = 'uk-button-' + type + ' uk-button-' + size
 		.
 			+= self.slot()
