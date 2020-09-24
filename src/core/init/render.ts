@@ -50,6 +50,15 @@ export async function renderTo(selector: string | HTMLElement, options: Dictiona
 
 	Object.set(component, 'props.onChangeContent.default', (value: string) => {
 		areaProxy.value = value;
+
+		const fire = (eventName: string) => {
+			const evt = document.createEvent("HTMLEvents");
+			evt.initEvent(eventName, false, true);
+			area.dispatchEvent(evt);
+		};
+
+		fire('change');
+		fire('input');
 	});
 
 	if (params.previewUrl != null) {
