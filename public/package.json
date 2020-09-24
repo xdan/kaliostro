@@ -1,6 +1,6 @@
 {
   "name": "kaliostro",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Admin by schema.json",
   "main": "kaliostro.min.js",
   "keywords": [],
