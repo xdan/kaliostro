@@ -1,6 +1,24 @@
 import Component, {rootComponents} from 'core/component';
 
-export async function renderTo(selector: string | HTMLElement, options: Dictionary = {}): Promise<Component> {
+interface Options {
+	onInput: (json: string) => string
+	onOutput: (json: string) => string
+	previewUrl?: string;
+}
+
+/**
+ * Draw Kaliostro after selector
+ *
+ * @param selector
+ * @param options
+ */
+export async function renderTo(
+	selector: string | HTMLElement,
+	options: Options = {
+		onInput: (s) => s,
+		onOutput: (s) => s,
+	}
+): Promise<Component> {
 	const
 		area = selector instanceof HTMLElement ? selector : document.querySelector<HTMLElement>(selector);
 
@@ -24,7 +42,9 @@ export async function renderTo(selector: string | HTMLElement, options: Dictiona
 	area.parentElement?.insertBefore(div, area);
 	area.style.display = 'none';
 
-	const params: Dictionary<any> = Object.mixin(true, {}, {"data": {}}, options);
+	const
+		params: Dictionary<any> & Options = Object.mixin(true, {}, {"data": {}}, options),
+		{onInput, onOutput} = params;
 
 	const
 		name = 'p-root',
@@ -42,14 +62,14 @@ export async function renderTo(selector: string | HTMLElement, options: Dictiona
 	};
 
 	try {
-		const json = JSON.parse(areaProxy.value);
+		const json = JSON.parse(onInput(areaProxy.value));
 		Object.set(component, 'props.contentProp.default', json);
 	} catch (e) {
 		console.error(e);
 	}
 
 	Object.set(component, 'props.onChangeContent.default', (value: string) => {
-		areaProxy.value = value;
+		areaProxy.value = onOutput(value);
 
 		const fire = (eventName: string) => {
 			const evt = document.createEvent("HTMLEvents");
