@@ -1,5 +1,6 @@
 import { AbstractTheme } from '@json-editor/json-editor/src/theme';
 import { h } from "core/helpers/h";
+import iconsStore from "base/utils/b-icon/modules/icons";
 
 export class UIKitTheme extends AbstractTheme {
 	static rules = {
@@ -9,6 +10,19 @@ export class UIKitTheme extends AbstractTheme {
 		".ko-json-button path,.ko-json-button polyline,.ko-json-button line": 'stroke: white',
 		".ko-json-button rect, polygon": 'fill: white',
 		".form-control": 'padding-bottom: 8px;',
+		".uk-form-small:not(textarea):not([multiple]):not([size])": 'line-height: 28px',
+		".uk-form__control-box": 'display: flex;',
+		".uk-tooltip-custom": 'font-family: sans-serif;' +
+			'visibility:hidden;' +
+			'background-color: rgba(50, 50, 50, .75);' +
+			'margin:0 .25rem;' +
+			'color:#FAFAFA;' +
+			'padding:.5rem 1rem;' +
+			'border-radius:.25rem;' +
+			'width:25rem;' +
+			'transform:translateX(-27rem) translateY(-.5rem);' +
+			'position:absolute;' +
+			'line-height:1;',
 	};
 
 	constructor(jsoneditor) {
@@ -74,7 +88,7 @@ export class UIKitTheme extends AbstractTheme {
 		field.appendChild(errorBox);
 	}
 
-	removeInputError (input: HTMLElement) {
+	removeInputError(input: HTMLElement) {
 		const field = input.parentElement;
 		if (!field || !field.classList.contains('has-error')) {
 			return;
@@ -82,5 +96,64 @@ export class UIKitTheme extends AbstractTheme {
 
 		field.classList.remove('has-error');
 		field.querySelector('.uk-text-danger')?.remove();
+	}
+
+	getDescription (text) {
+		const icon = document.createElement('span')
+
+		icon.classList.add('uk-icon');
+		icon.innerHTML = iconsStore['info'];
+
+		icon.style.padding = '.25rem'
+		icon.style.position = 'relative'
+		icon.style.display = 'inline-block'
+
+		const tooltip = document.createElement('span');
+		tooltip.classList.add('uk-tooltip-custom')
+
+		tooltip.innerText = text
+		icon.onmouseover = () => {
+			tooltip.style.visibility = 'visible'
+		}
+		icon.onmouseleave = () => {
+			tooltip.style.visibility = 'hidden'
+		}
+
+		icon.appendChild(tooltip)
+
+		return icon
+	}
+
+	getFormControl (label, input, description, infoText) {
+		const el = document.createElement('div')
+		el.classList.add('uk-form-control')
+		if (label) el.appendChild(label)
+
+		if ((input.type === 'checkbox' || input.type === 'radio') && label) {
+			input.style.width = 'auto'
+			label.insertBefore(input, label.firstChild);
+			if (infoText) {
+				label.appendChild(infoText);
+			}
+			if (description) {
+				el.appendChild(description)
+			}
+
+		} else {
+			const box = document.createElement('div');
+			box.classList.add('uk-form__control-box');
+			el.appendChild(box)
+
+			if (infoText && label) {
+				label.appendChild(infoText)
+			}
+
+			box.appendChild(input);
+			if (description) {
+				box.appendChild(description)
+			}
+		}
+
+		return el
 	}
 }

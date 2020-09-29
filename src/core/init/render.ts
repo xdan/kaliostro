@@ -6,19 +6,28 @@ interface Options {
 	previewUrl?: string;
 }
 
+interface OptionsOptional {
+	onInput?: Options['onInput'];
+	onOutput?: Options['onOutput']
+	previewUrl?: Options['previewUrl'];
+}
+
+
 /**
  * Draw Kaliostro after selector
  *
  * @param selector
- * @param options
+ * @param opts
  */
 export async function renderTo(
 	selector: string | HTMLElement,
-	options: Options = {
+	opts: OptionsOptional = {}
+): Promise<Component> {
+	const options: Options = Object.mixin(true, {
 		onInput: (s) => s,
 		onOutput: (s) => s,
-	}
-): Promise<Component> {
+	}, opts);
+
 	const
 		area = selector instanceof HTMLElement ? selector : document.querySelector<HTMLElement>(selector);
 

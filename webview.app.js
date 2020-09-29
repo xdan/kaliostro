@@ -19,7 +19,7 @@ const
 	{api, src} = config,
 	app = express();
 
-if (api.proxy()) {
+if (api.proxy && (typeof api.proxy !== 'function' || api.proxy())) {
 	$C(api.schema).forEach((url, nm) => {
 		const
 			nms = nm.split(':');

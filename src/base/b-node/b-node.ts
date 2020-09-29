@@ -91,7 +91,7 @@ export default class bNode extends iBlock {
 
 		if (this.draggable) {
 			this.draggable.style.width = (this.$el?.clientWidth ?? 300) + 'px';
-			document.body.appendChild(this.draggable);
+			this.r.$el.appendChild(this.draggable);
 			this.setDummyPosition();
 		}
 
